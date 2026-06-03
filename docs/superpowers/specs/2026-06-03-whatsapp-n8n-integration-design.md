@@ -63,7 +63,7 @@ All components run locally on the user's Windows machine. No public internet tun
   4. **Response Dispatcher**: Sends the generated code summary, diffs, or agent responses back to the WhatsApp Gateway `POST /send-message` endpoint.
 
 ### 3. Workspace Manager
-- Works in subdirectories under `C:\Users\Bintang\.gemini\antigravity\scratch`.
+- Works in subdirectories under the local scratch directory (e.g. `C:\path\to\your\scratch`).
 - The user can select their active directory using `/project select <name>`.
 
 ---
@@ -74,7 +74,7 @@ All components run locally on the user's Windows machine. No public internet tun
 | :--- | :--- | :--- |
 | **Direct Prompt** | *e.g., "Buat script python"* | Forwards the prompt to Antigravity in the active workspace directory. |
 | **Approval** | `Y` / `1` or `T` / `2` | Confirms or rejects a pending Antigravity permission request. |
-| `/project list` | View Workspaces | Lists all project subdirectories inside `C:\Users\Bintang\.gemini\antigravity\scratch`. |
+| `/project list` | View Workspaces | Lists all project subdirectories inside the scratch directory. |
 | `/project select <name>`| Select Workspace | Switches the active directory context to the selected folder. |
 | `/project new <name>` | Create Workspace | Creates a new subdirectory under the scratch path. |
 | `/model list` | View AI Models | Lists available models (e.g. Gemini 3.5 Flash, Gemini 1.5 Pro). |

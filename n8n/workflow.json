@@ -88,7 +88,7 @@
     },
     {
       "parameters": {
-        "command": "=node C:\\Users\\Bintang\\.gemini\\antigravity\\scratch\\antigravity-whatsapp-n8n\\gateway\\command-handler.js \"{{ $json.body.text }}\""
+        "command": "=node gateway/command-handler.js \"{{ $json.body.text }}\""
       },
       "id": "command-exec",
       "name": "Command Exec",
@@ -101,7 +101,7 @@
     },
     {
       "parameters": {
-        "command": "=node C:\\Users\\Bintang\\.gemini\\antigravity\\scratch\\antigravity-whatsapp-n8n\\gateway\\agent-runner-trigger.js \"{{ $json.body.text }}\""
+        "command": "=node gateway/agent-runner-trigger.js \"{{ $json.body.text }}\""
       },
       "id": "trigger-agent-cli",
       "name": "Trigger Agent CLI",

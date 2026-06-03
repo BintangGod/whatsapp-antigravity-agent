@@ -165,7 +165,7 @@ Write the script `agent.js` that implements the autonomous agent loop. It uses G
   AUTHORIZED_NUMBER=628123456789  # Replace with user's actual phone number
   GEMINI_API_KEY=YOUR_GEMINI_API_KEY
   N8N_WEBHOOK_URL=http://localhost:5678/webhook/whatsapp
-  ACTIVE_WORKSPACE=C:\Users\Bintang\.gemini\antigravity\scratch\workspace-default
+  ACTIVE_WORKSPACE=C:\path\to\your\scratch\workspace-default
   ACTIVE_MODEL=gemini-2.5-flash
   ```
 

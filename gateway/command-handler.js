@@ -63,7 +63,7 @@ async function handleCommand() {
   const subCommand = parts[1];
   const value = parts.slice(2).join(' ').trim();
 
-  const scratchPath = 'C:\\Users\\Bintang\\.gemini\\antigravity\\scratch';
+  const scratchPath = process.env.SCRATCH_PATH || path.resolve(__dirname, '../..');
 
   if (command === '/project') {
     if (subCommand === 'list') {
