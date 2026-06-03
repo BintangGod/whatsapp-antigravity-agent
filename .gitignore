@@ -1,0 +1,19 @@
+# Dependency directories
+node_modules/
+gateway/node_modules/
+
+# Local environment variables (Contains API keys and private tokens)
+gateway/.env
+
+# WhatsApp Auth Session state (Contains private login session data)
+gateway/auth_info/
+
+# Compiled and archive outputs
+*.zip
+*.log
+
+# Editor & System files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

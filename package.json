@@ -1,0 +1,13 @@
+{
+  "name": "antigravity-whatsapp-n8n-root",
+  "version": "1.0.0",
+  "description": "Root workspace for Antigravity WhatsApp n8n integration",
+  "private": true,
+  "scripts": {
+    "n8n": "n8n start"
+  },
+  "dependencies": {
+    "n8n": "^1.0.0",
+    "sqlite3": "^5.1.7"
+  }
+}

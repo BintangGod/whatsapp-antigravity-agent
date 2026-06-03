@@ -1,0 +1,169 @@
+{
+  "name": "Antigravity WhatsApp Connector",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "whatsapp",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "for (const item of $input.all()) {\n  const text = item.json.body.text || '';\n  let route = 'agent';\n  if (/^[yYtT12]$/.test(text.trim())) {\n    route = 'approve';\n  } else if (text.startsWith('/')) {\n    route = 'command';\n  }\n  item.json.route = route;\n}\nreturn $input.all();"
+      },
+      "id": "code-route-parser",
+      "name": "Route Parser",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        450,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "dataType": "string",
+        "value1": "={{ $json.route }}",
+        "rules": {
+          "rules": [
+            {
+              "value2": "approve",
+              "operation": "equal"
+            },
+            {
+              "value2": "command",
+              "operation": "equal"
+            },
+            {
+              "value2": "agent",
+              "operation": "equal"
+            }
+          ]
+        }
+      },
+      "id": "router-switch",
+      "name": "Router Switch",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 1,
+      "position": [
+        650,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:3000/approve",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"approved\": \"{{ $json.body.text }}\"\n}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-API-Key",
+              "value": "mysecretkey123"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "approve-post",
+      "name": "Approve POST",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        900,
+        150
+      ]
+    },
+    {
+      "parameters": {
+        "command": "=node C:\\Users\\Bintang\\.gemini\\antigravity\\scratch\\antigravity-whatsapp-n8n\\gateway\\command-handler.js \"{{ $json.body.text }}\""
+      },
+      "id": "command-exec",
+      "name": "Command Exec",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        900,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "command": "=node C:\\Users\\Bintang\\.gemini\\antigravity\\scratch\\antigravity-whatsapp-n8n\\gateway\\agent-runner-trigger.js \"{{ $json.body.text }}\""
+      },
+      "id": "trigger-agent-cli",
+      "name": "Trigger Agent CLI",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        900,
+        450
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook Trigger": {
+      "main": [
+        [
+          {
+            "node": "Route Parser",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route Parser": {
+      "main": [
+        [
+          {
+            "node": "Router Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Router Switch": {
+      "main": [
+        [
+          {
+            "node": "Approve POST",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Command Exec",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Trigger Agent CLI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
